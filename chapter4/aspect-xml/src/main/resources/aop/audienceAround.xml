@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="performance"  class="aop.Performance"/>
+    <bean id="audienceAround"   class="aop.AudienceAround"/>
+
+    <aop:config>
+        <aop:aspect ref="audienceAround">
+            <aop:pointcut id="perform" expression="execution(* aop.Performance.perform(..))"/>
+            <aop:around pointcut-ref="perform" method="watchPerformance"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
